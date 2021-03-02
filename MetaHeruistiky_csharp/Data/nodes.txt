@@ -1,0 +1,13 @@
+!počet záznamov
+!poradové číslo vrchola,"názov"
+10
+1,"Ab"
+2,"Ac"
+3,"Ad"
+4,"Ae"
+5,"Ba"
+6,"Bc"
+7,"Bd"
+8,"Be"
+9,"Bf"
+10,"Bg"
