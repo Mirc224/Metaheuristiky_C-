@@ -27,14 +27,15 @@ namespace MetaHeruistiky_csharp
                             Console.WriteLine(item);
                         }*/
             AStar astar = new AStar();
-            astar.ReadMyNodes("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\my_nodes.txt");
+            /*astar.ReadMyNodes("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\my_nodes.txt");
             astar.ReadMyEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\my_edges.txt");
             astar.ReadMyIncidentEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\my_incident_edges.txt");
-            astar.CalculateShortestPath(12, 4);
-            /*astar.ReadNodes("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_nodes.atr");
+            astar.CalculateShortestPath(12, 4);*/
+            astar.ReadNodes("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_nodes.atr");
             astar.ReadNodeCords("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_nodes.vec");
             astar.ReadEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_edges.atr");
-            astar.ReadIncidentEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_edges_incid.txt");*/
+            astar.ReadIncidentEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_edges_incid.txt");
+            astar.CalculateShortestPath(12, 4);
             //dijkstra.ReadNodeFile(".\\Data\\nodes.txt");
         }
     }

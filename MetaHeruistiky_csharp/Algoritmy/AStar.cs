@@ -117,7 +117,6 @@ namespace MetaHeruistiky_csharp.Algoritmy
             {
                 DistanceFromStart[i] = double.MaxValue;
             }
-            int neighbourEdges = 0;
             int indexToStar = StarIndex[from];
 
             ForwardStarNode tmpNode = null;
@@ -132,21 +131,21 @@ namespace MetaHeruistiky_csharp.Algoritmy
 
         private void CalulateEuclidian(int to)
         {
-            EuclidianDistanceToEnd = new double[] { 9, 7, 8, 8, 0, 6, 3, 6, 4, 4, 3, 6, 10};
-            /*double fromX1;
+            //EuclidianDistanceToEnd = new double[] { 9, 7, 8, 8, 0, 6, 3, 6, 4, 4, 3, 6, 10};
+            double fromX1;
             double endX2 = Nodes[to].XCord;
             double fromY1;
             double endY2 = Nodes[to].YCord;
             double x;
             double y;
-            for(int i = 0; i < NumberOfNodes; ++i)
+            for (int i = 0; i < NumberOfNodes; ++i)
             {
                 fromX1 = Nodes[i].XCord;
                 fromY1 = Nodes[i].YCord;
                 x = (fromX1 - endX2);
                 y = (fromY1 - endY2);
-                EuclidianDistanceToEnd[i] = Math.Sqrt(x*x + y*y); ;
-            }*/
+                EuclidianDistanceToEnd[i] = Math.Sqrt(x * x + y * y); ;
+            }
         }
 
         public void ReadMyNodes(string fileName)
@@ -418,6 +417,8 @@ namespace MetaHeruistiky_csharp.Algoritmy
                     startIndex = Int32.Parse(splitResult[1]);
                     endIndex = Int32.Parse(splitResult[2]);
                     distance = Edges[edgeId];
+                    if (startIndex == endIndex)
+                        continue;
 
                     newNode = new ForwardStarNode { ID = edgeId, StartNode = startIndex, EndNode = endIndex, Distance = distance };
                     tmpStartNode = ForwardStar[startIndex];
@@ -509,13 +510,13 @@ namespace MetaHeruistiky_csharp.Algoritmy
                     Console.WriteLine(edgeId);*/
                 }
             }
-            Console.WriteLine("done");
+            //Console.WriteLine("done");
             startIndex = 0;
             tmpStartNode = ForwardStar[startIndex];
             tmpNode = tmpStartNode;
             while (true)
             {
-                Console.WriteLine(tmpNode.ID);
+                //Console.WriteLine(tmpNode.ID);
                 if(tmpNode.StartNode == startIndex)
                 {
                     tmpNode = tmpNode.StartNodeRef;
