@@ -35,7 +35,11 @@ namespace MetaHeruistiky_csharp
             astar.ReadNodeCords("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_nodes.vec");
             astar.ReadEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_edges.atr");
             astar.ReadIncidentEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_edges_incid.txt");
-            astar.CalculateShortestPath(12, 4);
+            //astar.CalculateShortestPath(12, 4);
+            astar.CalculateShortestPath(7, 20);
+            //astar.TestConnectionOfGraph();
+            Console.WriteLine("Kontrolujem spojenie");
+            astar.FindConnectedComponents();
             //dijkstra.ReadNodeFile(".\\Data\\nodes.txt");
         }
     }

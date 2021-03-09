@@ -18,7 +18,7 @@ namespace MetaHeruistiky_csharp.Algoritmy
         public double[] EuclidianDistanceToEnd { get; set; }
         public List<int> ReconstructedPath { get; set; } = new List<int>();
 
-        public void CalculateShortestPath(int from = 12, int to = 5)
+        public bool CalculateShortestPath(int from = 12, int to = 5)
         {
             bool[] wasVisited = new bool[NumberOfNodes];
             List<int> unvisitedList = new List<int>();
@@ -38,6 +38,7 @@ namespace MetaHeruistiky_csharp.Algoritmy
             int tmpIndex = -1;
             int actualNode = -1;
             double tmpDistance = -1;
+            bool vertexReached = false;
             while(unvisitedList.Count != 0)
             {
                 actualMinumum = double.MaxValue;
@@ -51,7 +52,11 @@ namespace MetaHeruistiky_csharp.Algoritmy
                     }
                 }
                 if (actualNode == to)
+                {
+                    vertexReached = true;
                     break;
+                }
+                    
 
                 wasVisited[actualNode] = true;
                 unvisitedList.Remove(actualNode);
@@ -99,16 +104,97 @@ namespace MetaHeruistiky_csharp.Algoritmy
             }
 
             ReconstructedPath.Clear();
-            ReconstructedPath.Add(to);
-            tmpIndex = PreviousVertex[to];
-            while(tmpIndex != -1)
+            if (vertexReached)
             {
-                ReconstructedPath.Add(tmpIndex);
-                tmpIndex = PreviousVertex[tmpIndex];
+                ReconstructedPath.Add(to);
+                tmpIndex = PreviousVertex[to];
+                while (tmpIndex != -1)
+                {
+                    ReconstructedPath.Add(tmpIndex);
+                    tmpIndex = PreviousVertex[tmpIndex];
+                }
+                ReconstructedPath.Reverse();
+                Console.WriteLine(String.Join("-", ReconstructedPath.ToArray()));
+                Console.WriteLine($"Vzdialenost: {DistanceFromStart[to]}");
             }
-            ReconstructedPath.Reverse();
-            Console.WriteLine(String.Join("-", ReconstructedPath.ToArray()));
+            return vertexReached;
+        }
 
+        public void FindConnectedComponents()
+        {
+            bool[] visited = new bool[NumberOfNodes];
+            int componentCount = 0;
+            Queue<int> front = new Queue<int>();
+            Queue<int> tmpFront = null;
+            int tmpIndex = -1;
+            for(int i = 0; i < NumberOfNodes; ++i)
+            {
+                if(!visited[i])
+                {
+                    visited[i] = true;
+                    front = GetNeighboursIndexes(i);
+                    while(front.Count != 0)
+                    {
+                        tmpIndex = front.Dequeue();
+                        if(!visited[tmpIndex])
+                        {
+                            visited[tmpIndex] = true;
+                            tmpFront = GetNeighboursIndexes(tmpIndex);
+                            while (tmpFront.Count != 0)
+                                front.Enqueue(tmpFront.Dequeue());
+                        }
+                    }
+                    ++componentCount;
+                }
+            }
+            Console.WriteLine(componentCount);
+        }
+
+        private Queue<int> GetNeighboursIndexes(int vertex)
+        {
+            Queue<int> neighbourNodes = new Queue<int>();
+            ForwardStarNode tmpStarNode = null;
+            tmpStarNode = ForwardStar[vertex];
+            if (tmpStarNode != null)
+            {
+                while (true)
+                {
+                    if (tmpStarNode.StartNode != vertex)
+                        neighbourNodes.Enqueue(tmpStarNode.StartNode);
+                    else
+                        neighbourNodes.Enqueue(tmpStarNode.EndNode);
+
+                    if (tmpStarNode.StartNode == vertex)
+                    {
+                        if (tmpStarNode.StartNodeRef == ForwardStar[vertex])
+                            break;
+                        tmpStarNode = tmpStarNode.StartNodeRef;
+                    }
+                    else
+                    {
+                        if (tmpStarNode.EndNodeRef == ForwardStar[vertex])
+                            break;
+                        tmpStarNode = tmpStarNode.EndNodeRef;
+                    }
+                }
+            }
+            return neighbourNodes;
+        }
+
+        public void CheckIfGraphIsConnected()
+        {
+            int startVertex = 0;
+            for(int i = 0; i < NumberOfNodes; ++i)
+            {
+                if (startVertex == i)
+                    continue;
+                Console.WriteLine("Testujem " + i);
+                if(!CalculateShortestPath(startVertex, i))
+                {
+                    Console.WriteLine("Graph is not connected!");
+                    break;
+                }
+            }
         }
 
         private void CalculateDistanceFromStart(int from)
@@ -527,6 +613,15 @@ namespace MetaHeruistiky_csharp.Algoritmy
                 }
                 if (tmpNode == tmpStartNode)
                     break;
+            }
+        }
+
+        public void TestConnectionOfGraph()
+        {
+            for(int i = 0; i < ForwardStar.GetLength(0); ++i)
+            {
+                if(ForwardStar[0] == null)
+                    Console.WriteLine($"Vrchol {i} nie je incidentny so ziadnou hranou.");
             }
         }
     }
