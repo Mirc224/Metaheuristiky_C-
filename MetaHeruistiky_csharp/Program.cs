@@ -36,7 +36,7 @@ namespace MetaHeruistiky_csharp
             astar.ReadEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_edges.atr");
             astar.ReadIncidentEdges("C:\\Users\\miros\\source\\repos\\MetaHeruistiky_csharp\\MetaHeruistiky_csharp\\Data\\SR_edges_incid.txt");
             //astar.CalculateShortestPath(12, 4);
-            astar.CalculateShortestPath(7, 20);
+            astar.CalculateShortestPath(154, 12);
             //astar.TestConnectionOfGraph();
             Console.WriteLine("Kontrolujem spojenie");
             astar.FindConnectedComponents();

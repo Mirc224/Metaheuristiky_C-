@@ -49,11 +49,11 @@ namespace MetaHeruistiky_csharp.Algoritmy
                 }
             }
 
-            for (int i = 1; i <= NumberOfNodes; i++)
+            for (int k = 1; k <= NumberOfNodes; k++)
             {
-                for (int j = 1; j <= NumberOfNodes; j++)
+                for (int i = 1; i <= NumberOfNodes; i++)
                 {
-                    for (int k = 1; k <= NumberOfNodes; k++)
+                    for (int j = 1; j <= NumberOfNodes; j++)
                     {
                         if(Dist[i, j] > Dist[i, k] + Dist[k, j])
                         {

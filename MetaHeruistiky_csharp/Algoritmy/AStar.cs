@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MetaHeruistiky_csharp.Algoritmy.Assets;
+using System.Diagnostics;
 
 namespace MetaHeruistiky_csharp.Algoritmy
 {
@@ -20,6 +21,8 @@ namespace MetaHeruistiky_csharp.Algoritmy
 
         public bool CalculateShortestPath(int from = 12, int to = 5)
         {
+            Console.WriteLine("Zacinam");
+            var stopW = new Stopwatch();
             bool[] wasVisited = new bool[NumberOfNodes];
             List<int> unvisitedList = new List<int>();
             List<int> visitedList = new List<int>();
@@ -30,6 +33,7 @@ namespace MetaHeruistiky_csharp.Algoritmy
             {
                 DistanceFromStart[i] = double.MaxValue;
                 PreviousVertex[i] = -1;
+                //unvisitedList.Add(i);
             }
             DistanceFromStart[from] = 0;
             unvisitedList.Add(from);
@@ -39,6 +43,8 @@ namespace MetaHeruistiky_csharp.Algoritmy
             int actualNode = -1;
             double tmpDistance = -1;
             bool vertexReached = false;
+            int removedIndex = -1;
+            stopW.Start();
             while(unvisitedList.Count != 0)
             {
                 actualMinumum = double.MaxValue;
@@ -49,6 +55,7 @@ namespace MetaHeruistiky_csharp.Algoritmy
                     {
                         actualMinumum = DistanceFromStart[tmpIndex] + EuclidianDistanceToEnd[tmpIndex];
                         actualNode = tmpIndex;
+                        removedIndex = i;
                     }
                 }
                 if (actualNode == to)
@@ -59,7 +66,10 @@ namespace MetaHeruistiky_csharp.Algoritmy
                     
 
                 wasVisited[actualNode] = true;
-                unvisitedList.Remove(actualNode);
+                unvisitedList[removedIndex] = unvisitedList[unvisitedList.Count - 1];
+                unvisitedList.RemoveAt(unvisitedList.Count-1);
+                //unvisitedList.RemoveAt(removedIndex);
+                //unvisitedList.Remove(actualNode);
 
                 tmpStarNode = ForwardStar[actualNode];
                 neighbourNodes.Clear();
@@ -95,14 +105,16 @@ namespace MetaHeruistiky_csharp.Algoritmy
                     {
                         DistanceFromStart[tmpIndex] = tmpDistance;
                         PreviousVertex[tmpIndex] = actualNode;
-                        if(!wasVisited[tmpIndex])
+
+                        if (!wasVisited[tmpIndex])
                         {
                             unvisitedList.Add(tmpIndex);
                         }
                     }
                 }
             }
-
+            stopW.Stop();
+            Console.WriteLine(stopW.Elapsed);
             ReconstructedPath.Clear();
             if (vertexReached)
             {
@@ -116,6 +128,10 @@ namespace MetaHeruistiky_csharp.Algoritmy
                 ReconstructedPath.Reverse();
                 Console.WriteLine(String.Join("-", ReconstructedPath.ToArray()));
                 Console.WriteLine($"Vzdialenost: {DistanceFromStart[to]}");
+            }
+            else
+            {
+                Console.WriteLine("Trasa neexistuje");
             }
             return vertexReached;
         }
